@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Xmas Carol</title>
+
+		<style>
+			div{background-color:rgba(0,255,0,0.0);}
+
+			html, body
+			{
+			    	height:100%;
+				padding:0px;
+			}
+
+			body
+			{
+				background:url(https://2.bp.blogspot.com/-nMosL2ECcXc/WFfzeO_yNII/AAAAAAAABzA/dtPQOZQbRbo53yY8qQIqoJf_pmdN3b8gQCLcB/s1600/xmas2016_bg.jpg);
+			}
+
+			#container
+			{
+				width:100%;
+				height:1000%;
+			}
+
+			#view_wrapper
+			{
+				width:100%;
+				height:80%;
+				position:fixed;
+				margin-top:5%;
+			}
+
+			#view
+			{
+				width:80%;
+				height:100%;
+				margin: 0 auto 0 auto;
+				text-align:center;
+				font-size:5em;
+				font-family:verdana;
+				font-weight:bold;
+			}
+
+			#caroller
+			{
+				width:200px;
+				height:300px;
+				margin: -20% auto 0 auto;
+			}
+
+			#caroller .head
+			{
+				width:100px;
+				height:100px;
+				background-color:#AA4400;
+				border-radius:50%;
+				margin: 0 auto 0 auto;
+			}
+
+			#caroller .head .hair
+			{
+				width:100%;
+				height:50%;
+			}
+
+			#caroller .head .hair::before,#caroller .head .hair::after
+			{
+				content:"";
+				display:block;
+				width:60%;
+				height:100%;
+				background-color:#000000;
+			}
+
+			#caroller .head .hair::before
+			{
+				border-radius:70% 0%;
+				float:left;
+				margin-left:-10%;
+			}
+
+			#caroller .head .hair::after
+			{
+				border-radius:0% 70%;
+				float:right;
+				margin-right:-10%;
+			}
+
+			#caroller .head .mouth
+			{
+				width:0px;
+				height:0px;
+				background-color:#000000;
+				border-radius:50%;
+				margin: 10% auto 0 auto;
+			}
+
+			#caroller .body
+			{
+				width:180px;
+				height:150px;
+				background-color:#AA0000;
+				border-radius:40% 40% 0% 0%;
+				margin: -5px auto 0 auto;
+				padding-top:10px;
+			}
+
+			#caroller .body::before,#caroller .body::after
+			{
+				content:"";
+				display:block;
+				width:50px;
+				height:50px;
+				border-radius:50%;
+				background-color:#FFFFFF;	
+			}
+
+			#caroller .body::before
+			{
+				float:left;
+				margin-left:-10%;
+				margin-top:50px;
+			}
+
+			#caroller .body::after
+			{
+				float:right;
+				margin-right:-10%;
+				margin-top:-30px;
+			}
+
+			#caroller .sheet
+			{
+				width:80%;
+				height:50%;
+				background-color:#FFFF00;
+				margin: 0 auto 0 auto;
+			}
+
+			#caroller .feet
+			{
+				width:150px;
+				height:50px;
+				background-color:#440000;
+				margin: 0 auto 0 auto;
+			}
+
+			#caroller .feet::before,#caroller .feet::after
+			{
+				content:"";
+				display:block;
+				width:60%;
+				height:80%;
+				border-radius:50% 50% 0% 0%;
+				background-color:#220000;
+				margin-top:10px;
+			}
+
+			#caroller .feet::before
+			{
+				float:left;
+				margin-left:-10%;
+			}
+
+			#caroller .feet::after
+			{
+				float:right;
+				margin-right:-10%;
+			}
+		</style>
+
+		<script>
+			var lyrics="We wish you a Merry Christmas||We wish you a Merry Christmas||We wish you a Merry Christmas||And a Happy New Year!||Good tidings to you||To you and your kin||Good tidings for Christmas||And a Happy New Year!";
+
+			var lines=lyrics.split("|");
+
+			var segment_per_line=Math.floor(90/lines.length);
+
+			for (var i=0;i<lines.length;i++)
+			{
+				lines[i]=lines[i].split(" ");
+			}
+
+			function getScrollPercentage()
+			{
+				return (document.body.scrollTop/(window.innerHeight*10))*100;
+			}
+
+			function getWordsFromLine(line,completion)
+			{
+				var completion_ratio=(completion/segment_per_line);
+				var words_displayed=Math.ceil(line.length*completion_ratio);
+				var words="";
+
+				for (var i=0;i<words_displayed;i++)
+				{
+					words+=line[i]+" ";
+				}
+
+				return words;
+			}
+
+			function generaterandomno(varmin,varmax)
+			{
+				return Math.floor((Math.random() * (varmax-varmin+1)) + varmin);
+			}
+
+			function scrolling()
+			{
+				var scrolled=getScrollPercentage();
+				var line_no=Math.floor(scrolled/segment_per_line);
+				var segment_completion=line_no*segment_per_line;
+
+				var words=(lines[line_no]==undefined?"":getWordsFromLine(lines[line_no],scrolled-segment_completion));
+
+				if (words.length>0)
+				{
+					document.getElementById("view").innerHTML=words;
+					document.getElementById("mouth").style.height=generaterandomno(10,30)+"px";
+					document.getElementById("mouth").style.width=generaterandomno(10,50)+"px";
+					document.getElementById("head").style.transform="rotate("+generaterandomno(-5,5)+"deg)";
+					document.getElementById("head").style.webkitTransform="rotate("+generaterandomno(-5,5)+"deg)";
+				}
+				else
+				{
+					document.getElementById("mouth").style.height="0px";
+					document.getElementById("mouth").style.width="0px";	
+				}
+			}
+		</script>
+	</head>
+
+	<body onscroll="scrolling()">
+		<div id="container">
+			<div id="view_wrapper">
+				<div id="view">
+
+				</div>
+				<div id="caroller">
+					<div class="head" id="head">
+						<div class="hair">
+
+						</div>
+						<div class="mouth" id="mouth">
+
+						</div>
+					</div>
+					<div class="body">
+						<div class="sheet">
+
+						</div>
+					</div>
+					<div class="feet">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
