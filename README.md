@@ -7,4 +7,4 @@ From there, more calculations are made to determine which line of the carol is "
 ## Caroller
 The caroller is rendered using CSS. The "mouth" is a black div whose height and width varies according to randomly generated values as the user scrolls.
 
-***Note:** This will probably not work in Safari due to the `document.documentElement.scrollTop` issue.
+***Note:** This will probably not work in Safari due to the `document.documentElement.scrollTop` issue.*
